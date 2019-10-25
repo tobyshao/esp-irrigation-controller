@@ -1,0 +1,115 @@
+{
+  "pluginAlias": "esp-irrigation-controller",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "",
+  "footerDisplay": "",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "ESP Irrigation",
+        "minLength": 1,
+        "required": true,
+        "description": "Plugin name displayed in logs"
+      },
+      "activeSolenoids": {
+        "title": "Active Solenoids",
+        "type": "integer",
+        "default": 8,
+        "maximum": 15,
+        "required": true,
+        "description": "Number of connected solenoids"
+      },
+      "programs": {
+        "title": "Programs",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Program Name",
+              "type": "string",
+              "default": "Program",
+              "minLength": 1,
+              "required": true,
+              "description": "Unique program name"
+            },
+            "solenoids": {
+              "title": "Solenoids",
+              "type": "string",
+              "default": "1,2,3,4,5,6,7,8",
+              "required": true,
+              "pattern": "^\\d+(?:,\\d+)*$",
+              "description": "Comma sperated list of solenoids"
+            }
+          }
+        }
+      }
+    }
+  },
+  "layout": [
+    {
+      "type": "flex",
+      "flex-flow": "row wrap",
+      "items": [
+        {
+          "type": "flex",
+          "flex-flow": "column",
+          "items": [
+            "name"
+          ]
+        },
+        {
+          "type": "flex",
+          "flex-flow": "column",
+          "items": [
+            "activeSolenoids"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "fieldset",
+      "expandable": true,
+      "expanded": false,
+      "title": "Programs",
+      "items": [
+        {
+          "type": "help",
+          "helpvalue": "<em class='primary-text'>Each program will be exposed as a switch in HomeKit.</em>"
+        },
+        {
+          "nodescription": true,
+          "notitle": true,
+          "key": "programs",
+          "type": "array",
+          "items": [
+            {
+              "type": "flex",
+              "flex-flow": "row wrap",
+              "items": [
+                {
+                  "type": "flex",
+                  "flex-flow": "column",
+                  "items": [
+                    "programs[].name"
+                  ]
+                },
+                {
+                  "type": "flex",
+                  "flex-flow": "column",
+                  "items": [
+                    "programs[].solenoids"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

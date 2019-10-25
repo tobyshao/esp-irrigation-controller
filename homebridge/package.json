@@ -1,0 +1,49 @@
+{
+  "displayName": "ESP Irrigation Controller",
+  "name": "homebridge-esp-irrigation-controller",
+  "version": "0.0.6",
+  "description": "A Homebridge plugin for a custom ESP32 powered irrigation system controller",
+  "license": "MIT",
+  "author": "oznu <dev@oz.nu>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oznu/esp-irrigation-system-controller.git"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=10.16.3",
+    "homebridge": ">=0.4.22"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "homebridge",
+    "irrigation"
+  ],
+  "bundledDependencies": [
+    "@oznu/ws-connect"
+  ],
+  "dependencies": {
+    "@oznu/ws-connect": "^1.0.0",
+    "bonjour": "^3.5.0",
+    "dayjs": "^1.8.16",
+    "fs-extra": "^8.1.0",
+    "inflection": "^1.12.0",
+    "mdns-resolver": "0.0.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.0.1",
+    "@types/node": "^12.11.2",
+    "@types/ws": "^6.0.3",
+    "nodemon": "^1.19.4",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
+  }
+}
