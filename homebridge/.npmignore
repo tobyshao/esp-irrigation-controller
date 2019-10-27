@@ -1,0 +1,5 @@
+src
+homebridge-esp-irrigation-controller-*.tgz
+tsconfig.json
+tslint.json
+nodemon.json
