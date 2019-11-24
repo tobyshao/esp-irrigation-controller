@@ -23,6 +23,15 @@
         "required": true,
         "description": "Number of connected solenoids"
       },
+      "activationDelay": {
+        "title": "Solenoid Activation Delay",
+        "type": "integer",
+        "default": 1000,
+        "minimum": -300000,
+        "required": true,
+        "description": "The amount of time (ms) between solenoid activations in a program. Negative values are allowed.",
+        "placeholder": "ms"
+      },
       "programs": {
         "title": "Programs",
         "type": "array",
@@ -109,6 +118,15 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "type": "fieldset",
+      "expandable": true,
+      "expanded": false,
+      "title": "Other Settings",
+      "items": [
+        "activationDelay"
       ]
     }
   ]

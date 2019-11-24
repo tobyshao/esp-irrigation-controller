@@ -32,6 +32,12 @@ export class Plugin {
     this.cache = {};
     this.cachePath = path.resolve(homebridge.user.storagePath(), 'accessories', 'esp-irrigation-controller.json');
 
+    // ensure activation delay is defined
+    if (isNaN(this.config.activationDelay) || typeof this.config.activationDelay !== 'number') {
+      this.log('Setting program Solenoid Activation Delay to default of 1000ms');
+      this.config.activationDelay = 1000;
+    }
+
     this.loadCache();
 
     const bonjour = Bonjour();
@@ -391,6 +397,7 @@ class ProgramSwitchService {
 
   startProgram() {
     this.log(`[${this.config.name}] - Starting Program`);
+    this.log(`[${this.config.name}] - Activation Delay: ${this.platform.plugin.config.activationDelay}ms`);
     this.currentJob = [...this.solenoids];
     if (this.currentJob.length) {
       this.nextRelay();
@@ -414,7 +421,7 @@ class ProgramSwitchService {
       // check if there are more relays to turn on with this program
       this.currentTimeout = setTimeout(() => {
         this.nextRelay();
-      }, (duration + 1) * 1000);
+      }, (duration * 1000) + this.platform.plugin.config.activationDelay);
     } else {
       // toggle the dummy switch off when all relays in the program have run
       this.currentTimeout = setTimeout(() => {
@@ -422,7 +429,7 @@ class ProgramSwitchService {
         this.running = false;
         this.log(`[${this.config.name}] - Program Finished`);
         this.service.updateCharacteristic(Characteristic.On, false);
-      }, (duration + 1) * 1000);
+      }, (duration * 1000));
     }
   }
 
